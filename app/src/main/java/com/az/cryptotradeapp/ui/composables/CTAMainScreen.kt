@@ -23,7 +23,6 @@ import com.az.cryptotradeapp.ui.theme.PaleWhite
 @Composable
 @Preview(device = Devices.PIXEL_4, showBackground = true)
 fun CTAMainScreen() {
-
     Scaffold(bottomBar = {
         CTABottomNavigationBar()
     }, content = { paddingValues ->
