@@ -12,13 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.az.cryptotradeapp.R
+import com.az.cryptotradeapp.ui.theme.FullWhite
 
 @Composable
 @Preview
 fun CTABottomNavigationBar(modifier: Modifier = Modifier) {
     NavigationBar(
         modifier = modifier,
-        contentColor = MaterialTheme.colorScheme.background,
         content = {
             CTANavigationItem(drawable = R.drawable.home_ic, isSelected = true)
 
@@ -28,7 +28,7 @@ fun CTABottomNavigationBar(modifier: Modifier = Modifier) {
 
             CTANavigationItem(drawable = R.drawable.wallet_ic, isSelected = false)
         },
-        containerColor = Color.White,
+        containerColor = FullWhite,
     )
 }
 
