@@ -23,7 +23,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,9 +31,26 @@ import coil.compose.AsyncImage
 import com.az.cryptotradeapp.R
 import com.az.cryptotradeapp.ui.theme.CryptoOrange
 
+data class HomeHeaderUIData(
+    val profilePictureURL: String,
+    val hasNotifications: Boolean,
+    val tradeValue: Float,
+    val tradeValueCurrency: String
+)
+
+private val mockHomeHeaderUIData = HomeHeaderUIData(
+    "https://cdn-icons-png.flaticon.com/512/5969/5969010.png",
+    true,
+    980.60f,
+    "USD"
+)
+
 @Composable
 @Preview(device = Devices.PIXEL_4, showBackground = true)
-fun CTAHomeHeader(modifier: Modifier = Modifier) {
+fun CTAHomeHeader(
+    modifier: Modifier = Modifier,
+    homeHeaderUIData: HomeHeaderUIData = mockHomeHeaderUIData
+) {
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -47,23 +63,23 @@ fun CTAHomeHeader(modifier: Modifier = Modifier) {
 
             AsyncImage(
                 modifier = Modifier
-                    .fillMaxHeight()
+                    .fillMaxHeight(0.8f)
                     .clip(CircleShape),
-                model = "https://cdn-icons-png.flaticon.com/512/5969/5969010.png",
+                model = homeHeaderUIData.profilePictureURL,
                 contentDescription = "Profile Picture"
             )
 
-            CTANotificationsIcon()
+            CTANotificationsIcon(homeHeaderUIData.hasNotifications)
 
         }
 
-        CTATodayValue()
+        CTATodayValue(homeHeaderUIData.tradeValue, homeHeaderUIData.tradeValueCurrency)
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-private fun CTATodayValue() {
+private fun CTATodayValue(tradeValue: Float = 980.60f, tradeValueCurrency: String = "USD") {
     Row(
         modifier = Modifier
             .padding(start = 35.dp, end = 35.dp)
@@ -78,7 +94,7 @@ private fun CTATodayValue() {
 
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
-                text = "+980.60",
+                text = "+$tradeValue",
                 color = CryptoOrange,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.displaySmall
@@ -86,7 +102,7 @@ private fun CTATodayValue() {
 
             Text(
                 modifier = Modifier.padding(start = 5.dp, bottom = 3.dp),
-                text = "USD",
+                text = tradeValueCurrency,
                 color = CryptoOrange,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.headlineSmall
