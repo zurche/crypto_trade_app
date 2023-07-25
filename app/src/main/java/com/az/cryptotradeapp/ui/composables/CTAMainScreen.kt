@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.az.cryptotradeapp.ui.composables.home.CTAHomeHeader
 import com.az.cryptotradeapp.ui.theme.FullWhite
 import com.az.cryptotradeapp.ui.theme.PaleWhite
 
@@ -55,7 +56,7 @@ private fun CTAHomeContent(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                 .fillMaxSize()
                 .background(brush = verticalWhiteGradient)
         ) {
-
+            CTAHomeHeader()
         }
     }
 }
