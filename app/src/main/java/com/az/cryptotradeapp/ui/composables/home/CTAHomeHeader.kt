@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +23,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,9 +56,43 @@ fun CTAHomeHeader(modifier: Modifier = Modifier) {
             CTANotificationsIcon()
 
         }
-        Row {
 
+        CTATodayValue()
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+private fun CTATodayValue() {
+    Row(
+        modifier = Modifier
+            .padding(start = 35.dp, end = 35.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column {
+            Text(text = "Today's", fontWeight = FontWeight.Bold)
+            Text(text = "Trade Value")
         }
+
+        Row(verticalAlignment = Alignment.Bottom) {
+            Text(
+                text = "+980.60",
+                color = CryptoOrange,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.displaySmall
+            )
+
+            Text(
+                modifier = Modifier.padding(start = 5.dp, bottom = 3.dp),
+                text = "USD",
+                color = CryptoOrange,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineSmall
+            )
+        }
+
     }
 }
 
