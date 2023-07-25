@@ -12,3 +12,4 @@ val Pink40 = Color(0xFF7D5260)
 
 val FullWhite = Color(0xFFFFFFFF)
 val PaleWhite = Color(0xFFF6F6F5)
+val CryptoOrange = Color(0xFFEEAA6F)
