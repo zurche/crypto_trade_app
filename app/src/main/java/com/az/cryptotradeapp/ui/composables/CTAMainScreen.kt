@@ -2,6 +2,7 @@ package com.az.cryptotradeapp.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.az.cryptotradeapp.ui.composables.home.CTAHomeHeader
+import com.az.cryptotradeapp.ui.composables.home.CTAMyCryptoCap
 import com.az.cryptotradeapp.ui.theme.FullWhite
 import com.az.cryptotradeapp.ui.theme.PaleWhite
 
@@ -56,7 +58,13 @@ private fun CTAHomeContent(paddingValues: PaddingValues = PaddingValues(0.dp)) {
                 .fillMaxSize()
                 .background(brush = verticalWhiteGradient)
         ) {
-            CTAHomeHeader()
+
+            Column {
+                CTAHomeHeader()
+
+                CTAMyCryptoCap()
+            }
+
         }
     }
 }
