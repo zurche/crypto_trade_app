@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
@@ -39,7 +40,7 @@ data class HomeHeaderUIData(
 )
 
 private val mockHomeHeaderUIData = HomeHeaderUIData(
-    "https://cdn-icons-png.flaticon.com/512/5969/5969010.png",
+    "https://firebasestorage.googleapis.com/v0/b/wall-mind.appspot.com/o/thumbnails%2Fabstract_14.jpg?alt=media&token=11ea8d06-2f60-43cc-85f4-ade552632078",
     true,
     980.60f,
     "USD"
@@ -63,10 +64,11 @@ fun CTAHomeHeader(
 
             AsyncImage(
                 modifier = Modifier
-                    .fillMaxHeight(0.8f)
+                    .size(40.dp)
                     .clip(CircleShape),
                 model = homeHeaderUIData.profilePictureURL,
-                contentDescription = "Profile Picture"
+                contentDescription = "Profile Picture",
+                contentScale = ContentScale.Crop
             )
 
             CTANotificationsIcon(homeHeaderUIData.hasNotifications)
