@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -121,7 +122,14 @@ fun MonthlyCapPreview(monthlyPreview: List<Pair<String, Float>>) {
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight(columnHeightWeight)
-                        .padding(5.dp)
+                        .padding(5.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = setHighlightColor(
+                            pairPreview,
+                            maxMonthValue
+                        )
+                    ),
+                    shape = RoundedCornerShape(30)
                 ) { }
             }
         }
@@ -133,12 +141,22 @@ fun MonthlyCapPreview(monthlyPreview: List<Pair<String, Float>>) {
                 Text(
                     modifier = Modifier.weight(1f),
                     text = pairPreview.first,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.SemiBold,
+                    color = setHighlightColor(pairPreview, maxMonthValue)
                 )
             }
         }
     }
 }
+
+@Composable
+private fun setHighlightColor(
+    pairPreview: Pair<String, Float>,
+    maxMonthValue: Float
+) = if (pairPreview.second == maxMonthValue) Color.White else Color.White.copy(
+    alpha = 0.4f
+)
 
 private fun DrawScope.drawCurvyLine() {
     val stroke = Path().apply {
