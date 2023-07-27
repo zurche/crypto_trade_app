@@ -17,6 +17,10 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,15 +57,7 @@ fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mock
             modifier = Modifier
                 .fillMaxSize()
                 .background(verticalOrangeGradient)
-                .drawBehind {
-                    drawLine(
-                        color = Color.Black,
-                        start = Offset(size.width, -10f),
-                        end = Offset(size.width / 1.7f, size.width / 5f),
-                        strokeWidth = 50f
-                    )
-                    drawArc(color = Color.Red, startAngle = 180f, sweepAngle = 45f, false)
-                }
+                .drawBehind { drawCurvyLine() }
         ) {
             Column(modifier = Modifier.padding(top = 50.dp, start = 30.dp)) {
                 Text(
@@ -81,4 +77,29 @@ fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mock
 
         }
     }
+}
+
+private fun DrawScope.drawCurvyLine() {
+    val stroke = Path().apply {
+        moveTo(size.width.times(.9f), size.height.times(0f))
+
+        quadraticBezierTo(
+            size.width.times(.9f), size.height.times(.28f),
+            size.width.times(.73f), size.height.times(.15f)
+        )
+
+        quadraticBezierTo(
+            size.width.times(.53f), size.height.times(0f),
+            size.width.times(.55f), size.height.times(.25f)
+        )
+    }
+
+    drawPath(
+        stroke,
+        color = CryptoOrange4,
+        style = Stroke(
+            width = 50f,
+            cap = StrokeCap.Round
+        )
+    )
 }
