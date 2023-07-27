@@ -13,6 +13,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -21,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.az.cryptotradeapp.ui.theme.CryptoOrange2
 import com.az.cryptotradeapp.ui.theme.CryptoOrange3
+import com.az.cryptotradeapp.ui.theme.CryptoOrange4
 import com.az.cryptotradeapp.ui.theme.FullWhite
 
 data class MyCryptoCapUIData(val value: Float, val currency: String)
@@ -50,6 +53,15 @@ fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mock
             modifier = Modifier
                 .fillMaxSize()
                 .background(verticalOrangeGradient)
+                .drawBehind {
+                    drawLine(
+                        color = Color.Black,
+                        start = Offset(size.width, -10f),
+                        end = Offset(size.width / 1.7f, size.width / 5f),
+                        strokeWidth = 50f
+                    )
+                    drawArc(color = Color.Red, startAngle = 180f, sweepAngle = 45f, false)
+                }
         ) {
             Column(modifier = Modifier.padding(top = 50.dp, start = 30.dp)) {
                 Text(
