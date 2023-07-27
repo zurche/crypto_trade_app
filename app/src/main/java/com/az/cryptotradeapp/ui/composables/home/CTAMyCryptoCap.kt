@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -57,11 +58,12 @@ private val mockData =
 @Preview(device = Devices.PIXEL_4, showBackground = true)
 fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mockData) {
 
-    val verticalOrangeGradient = Brush.verticalGradient(
+    val verticalOrangeGradient = Brush.radialGradient(
         colors = listOf(
             CryptoOrange2,
             CryptoOrange3
-        )
+        ),
+        center = Offset(200f, 150f)
     )
 
     Card(
