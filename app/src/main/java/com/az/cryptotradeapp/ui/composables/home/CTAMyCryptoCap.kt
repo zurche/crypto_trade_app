@@ -30,9 +30,24 @@ import com.az.cryptotradeapp.ui.theme.CryptoOrange3
 import com.az.cryptotradeapp.ui.theme.CryptoOrange4
 import com.az.cryptotradeapp.ui.theme.FullWhite
 
-data class MyCryptoCapUIData(val value: Float, val currency: String)
+data class MyCryptoCapUIData(
+    val value: Float,
+    val currency: String,
+    val monthlyPreview: List<Pair<String, Float>>
+)
 
-private val mockData = MyCryptoCapUIData(38546.82f, "USD")
+private val mockData =
+    MyCryptoCapUIData(
+        38546.82f,
+        "USD",
+        listOf(
+            Pair("Jan", 15000f),
+            Pair("Feb", 20000f),
+            Pair("Mar", 38000f),
+            Pair("Apr", 8000f),
+            Pair("May", 10000f)
+        )
+    )
 
 @Composable
 @Preview(device = Devices.PIXEL_4, showBackground = true)
