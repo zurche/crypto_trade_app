@@ -1,5 +1,9 @@
 package com.az.cryptotradeapp.ui.composables.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +19,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -33,7 +42,7 @@ import androidx.compose.ui.unit.dp
 import com.az.cryptotradeapp.ui.theme.CryptoOrange2
 import com.az.cryptotradeapp.ui.theme.CryptoOrange3
 import com.az.cryptotradeapp.ui.theme.CryptoOrange4
-import com.az.cryptotradeapp.ui.theme.FullWhite
+import kotlinx.coroutines.delay
 
 data class MyCryptoCapUIData(
     val value: Float,
@@ -58,6 +67,13 @@ private val mockData =
 @Preview(device = Devices.PIXEL_4, showBackground = true)
 fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mockData) {
 
+    var animatedVisibility by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(200)
+        animatedVisibility = true
+    }
+
     val verticalOrangeGradient = Brush.radialGradient(
         colors = listOf(
             CryptoOrange2,
@@ -68,45 +84,50 @@ fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mock
 
     Card(
         modifier = Modifier
-            .background(color = FullWhite)
             .padding(10.dp)
             .fillMaxWidth()
             .height(300.dp),
-        shape = RoundedCornerShape(20)
+        shape = RoundedCornerShape(20),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(verticalOrangeGradient)
-                .drawBehind { drawCurvyLine() }
-        ) {
-            Column(
-                modifier = Modifier.padding(
-                    top = 50.dp,
-                    start = 30.dp,
-                    end = 30.dp,
-                    bottom = 15.dp
-                )
+        AnimatedVisibility(
+            visible = animatedVisibility,
+            enter = fadeIn() + slideInHorizontally()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(verticalOrangeGradient)
+                    .drawBehind { drawCurvyLine() }
             ) {
-                Text(
-                    text = "My Crypto Cap",
-                    color = Color.White,
-                    style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.ExtraLight
-                )
+                Column(
+                    modifier = Modifier.padding(
+                        top = 50.dp,
+                        start = 30.dp,
+                        end = 30.dp,
+                        bottom = 15.dp
+                    )
+                ) {
+                    Text(
+                        text = "My Crypto Cap",
+                        color = Color.White,
+                        style = MaterialTheme.typography.displaySmall,
+                        fontWeight = FontWeight.ExtraLight
+                    )
 
-                Text(
-                    modifier = Modifier.padding(bottom = 25.dp),
-                    text = "${data.value} ${data.currency}",
-                    color = Color.White,
-                    style = MaterialTheme.typography.displayMedium,
-                    fontWeight = FontWeight.ExtraBold
-                )
+                    Text(
+                        modifier = Modifier.padding(bottom = 25.dp),
+                        text = "${data.value} ${data.currency}",
+                        color = Color.White,
+                        style = MaterialTheme.typography.displayMedium,
+                        fontWeight = FontWeight.ExtraBold
+                    )
 
-                MonthlyCapPreview(data.monthlyPreview)
+                    MonthlyCapPreview(data.monthlyPreview)
+                }
+
             }
-
         }
+
     }
 }
 
