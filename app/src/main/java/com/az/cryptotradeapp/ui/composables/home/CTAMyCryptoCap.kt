@@ -3,15 +3,19 @@ package com.az.cryptotradeapp.ui.composables.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -74,7 +78,14 @@ fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mock
                 .background(verticalOrangeGradient)
                 .drawBehind { drawCurvyLine() }
         ) {
-            Column(modifier = Modifier.padding(top = 50.dp, start = 30.dp)) {
+            Column(
+                modifier = Modifier.padding(
+                    top = 50.dp,
+                    start = 30.dp,
+                    end = 30.dp,
+                    bottom = 15.dp
+                )
+            ) {
                 Text(
                     text = "My Crypto Cap",
                     color = Color.White,
@@ -88,8 +99,31 @@ fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mock
                     style = MaterialTheme.typography.displayMedium,
                     fontWeight = FontWeight.ExtraBold
                 )
+
+                MonthlyCapPreview(data.monthlyPreview)
             }
 
+        }
+    }
+}
+
+@Composable
+fun MonthlyCapPreview(monthlyPreview: List<Pair<String, Float>>) {
+    val maxMonthValue = monthlyPreview.maxBy { it.second }.second
+    Row(
+        modifier = Modifier.fillMaxSize(),
+        verticalAlignment = Alignment.Bottom
+    ) {
+        for (pairPreview in monthlyPreview) {
+            val columnHeightWeight = pairPreview.second / maxMonthValue
+            Card(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(columnHeightWeight)
+                    .padding(5.dp)
+            ) {
+                Text(text = pairPreview.first)
+            }
         }
     }
 }
