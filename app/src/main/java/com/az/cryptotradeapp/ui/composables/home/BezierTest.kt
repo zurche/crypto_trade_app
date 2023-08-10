@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -17,45 +18,62 @@ fun BezierTest() {
             val width = size.width
             val height = size.height
 
-            moveTo(x = height.times(.1f), y = height.times(.25f))
-
             // Top left corner
-            quadraticBezierTo(
-                x1 = width.times(.12f),
-                y1 = height.times(.12f),
-                x2 = width.times(.25f),
-                y2 = height.times(.1f)
-            )
+            moveTo(x = height.times(.02f), y = height.times(.2f))
 
-            lineTo(x = width.times(.75f), y = height.times(.1f))
+            val topLeftControlPoint = Offset(width.times(.02f), height.times(.02f))
+
+            cubicTo(
+                x1 = topLeftControlPoint.x,
+                y1 = topLeftControlPoint.y,
+                x2 = topLeftControlPoint.x,
+                y2 = topLeftControlPoint.y,
+                x3 = width.times(.2f),
+                y3 = height.times(.02f)
+            )
 
             // Top right corner
-            quadraticBezierTo(
-                x1 = width.times(.88f),
-                y1 = height.times(.12f),
-                x2 = width.times(.9f),
-                y2 = height.times(.25f)
-            )
+            lineTo(x = width.times(.8f), y = height.times(.02f))
 
-            lineTo(x = width.times(.9f), y = height.times(.75f))
+            val topRightControlPoint = Offset(width.times(.98f), height.times(.02f))
+
+            cubicTo(
+                x1 = topRightControlPoint.x,
+                y1 = topRightControlPoint.y,
+                x2 = topRightControlPoint.x,
+                y2 = topRightControlPoint.y,
+                x3 = width.times(.98f),
+                y3 = height.times(.2f)
+            )
 
             // Bottom right corner
-            quadraticBezierTo(
-                x1 = width.times(.88f),
-                y1 = height.times(.88f),
-                x2 = width.times(.75f),
-                y2 = height.times(.9f)
-            )
+            lineTo(x = width.times(.98f), y = height.times(.8f))
 
-            lineTo(x = width.times(.25f), y = height.times(.9f))
+            val bottomRightControlPoint = Offset(width.times(.98f), height.times(.98f))
+
+            cubicTo(
+                x1 = bottomRightControlPoint.x,
+                y1 = bottomRightControlPoint.y,
+                x2 = bottomRightControlPoint.x,
+                y2 = bottomRightControlPoint.y,
+                x3 = width.times(.8f),
+                y3 = height.times(.98f)
+            )
 
             // Bottom left corner
-            quadraticBezierTo(
-                x1 = width.times(.12f),
-                y1 = height.times(.88f),
-                x2 = width.times(.1f),
-                y2 = height.times(.75f)
+            lineTo(x = width.times(.2f), y = height.times(.98f))
+
+            val bottomLeftControlPoint = Offset(width.times(.02f), height.times(.98f))
+
+            cubicTo(
+                x1 = bottomLeftControlPoint.x,
+                y1 = bottomLeftControlPoint.y,
+                x2 = bottomLeftControlPoint.x,
+                y2 = bottomLeftControlPoint.y,
+                x3 = width.times(.02f),
+                y3 = height.times(.8f)
             )
+
             close()
         }
         drawPath(path = path, color = CryptoOrange)
