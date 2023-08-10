@@ -3,7 +3,6 @@ package com.az.cryptotradeapp.ui.composables.home
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -87,12 +86,13 @@ fun CTAMyCryptoCap(modifier: Modifier = Modifier, data: MyCryptoCapUIData = mock
             .padding(10.dp)
             .fillMaxWidth()
             .height(300.dp),
-        shape = RoundedCornerShape(20),
+        shape = CubicBezierCardShape(),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         AnimatedVisibility(
             visible = animatedVisibility,
-            enter = fadeIn() + slideInHorizontally()) {
+            enter = fadeIn() + slideInHorizontally()
+        ) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
